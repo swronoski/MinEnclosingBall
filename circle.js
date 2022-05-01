@@ -9,7 +9,8 @@ let outputDiv;
 let useRandom = false;
 
 function setup() {
-  createCanvas(400, 400);
+  let myCanvas = createCanvas(400, 400);
+  myCanvas.parent("#canvas-container");
   
   if(useRandom){
     let numPoints = random(3, 10);
@@ -22,30 +23,34 @@ function setup() {
     constructMEB();
   } else {
     let calcButton = createButton("Construct MEB");
+    calcButton.parent("#controls");
     calcButton.mouseClicked(constructMEB);
     
     let resetButton = createButton("Reset");
+    resetButton.parent("#controls");
     resetButton.mouseClicked(reset);
   }
   
-  outputDiv = createDiv();
-  outputDiv.style("width", width);
+  //outputDiv = createDiv();
+  //outputDiv.style("width", width);
+  outputDiv = select("#output");
 }
 
 
 function draw() {
-   background(200);
-   
+   //background('#43a6db');
+   background('#0f95dd');
   
-   
+   textFont('input-mono');
    
    translate(width/2, height/2);
    scale(scaleFactor);
    
    // axis
    strokeWeight(0.1);
-   stroke(160);
-   for(let x = -width/2/scaleFactor; x < width/2/scaleFactor; x++){
+   //stroke('#1194da');
+   stroke('#43a6db');
+   for(let x = -width/2/scaleFactor + 1; x < width/2/scaleFactor; x++){
      line(x, -height/2, x, height/2);
    }
    
@@ -55,22 +60,35 @@ function draw() {
    
    // circle
    noFill();
-   stroke(0, 0, 255);
+   stroke('#75cdfd');
    if(finalCircle != null){
      circle(finalCircle[1][0], finalCircle[1][1], finalCircle[0]*2);
    } 
    
    // center point
-   strokeWeight(0.3);
-   stroke(120);
+   strokeWeight(0.5);
+   stroke('#43a6db');
    point(0,0);
    
    // points
    strokeWeight(0.45);
-   stroke(255, 0, 0);
+   stroke('#75cdfd');
    
    for(let p = 0; p < points.length; p++){
      point(points[p][0], points[p][1]);
+   }
+   
+   textSize(1);
+   noStroke();
+   textAlign(CENTER);
+   //fill('#75cdfd');
+   fill('#a4dfff');
+   for(let p = 0; p < points.length; p++){
+     text("(" + points[p][0] + ", " + -points[p][1] + ")", points[p][0], points[p][1] - 1);
+   }
+   
+   if(points.length == 0){
+     text("Click to begin", 0, 0);
    }
    
     
@@ -162,28 +180,33 @@ function reset(){
 }
 
 function constructMEB(){
+  if(points.length < 2){
+    return;
+  }
   finalCircle = MinEnclosingBall([...points]);
   
   let output = "";
   
-  let selectedPoints = "[";
+  let selectedPoints = "";
+  //selectedPoints += "[";
   for(let p = 0; p < points.length; p++){
-    selectedPoints += "<span class='points'>(" + points[p][0] + ", " + -points[p][1] + ")</span>";
+    selectedPoints += "<span class='points'>(" + points[p][0] + ", " + -points[p][1] + ")";
     if(p < points.length-1){
       selectedPoints += ", </span>";
     } else {
       selectedPoints += "</span>";
     }
   }
-  selectedPoints += "]";
+  //selectedPoints += "]";
   
-  output += "<b style='color: #4a799c;'>Selected Points:</b> " + selectedPoints;
-  output += "<br />";
+  output += "<div class='output-section'><span class='output-label'>Selected Points:</span> <span class='output-value'>" + selectedPoints + "</span>";
+  output += "</div>";
   
-  output += "<b style='color: #4a799c;'>MEB Radius:</b> " + nfc(finalCircle[0], 5);
-  output += "<br />";
+  output += "<div class='output-section'><span class='output-label'>MEB Radius:</span> <span class='output-value'>" + nfc(finalCircle[0], 5) + "</span>";
+  output += "</div>";
   
-  output += "<b style='color: #4a799c;'>MEB Center:</b> (" + nfc(finalCircle[1][0], 5) + ", " + -nfc(finalCircle[1][1], 5) + ")";
+  output += "<div class='output-section'><span class='output-label'>MEB Center:</span> <span class='output-value'>(" + nfc(finalCircle[1][0], 5) + ", " + -nfc(finalCircle[1][1], 5) + ")</span>";
+  output += "</div>";
   
   outputDiv.html(output);
 }
@@ -201,7 +224,6 @@ function randomizeArray(myArr) {
 } 
 
 function mouseClicked(){
-  
   if((mouseX-width/2)/scaleFactor <= width/2/scaleFactor && (mouseX-width/2)/scaleFactor >= -width/2/scaleFactor &&
      (mouseY-height/2)/scaleFactor >= -height/2/scaleFactor && (mouseY-height/2)/scaleFactor <= height/2/scaleFactor
   ){
