@@ -170,7 +170,9 @@ function constructMEB(){
   for(let p = 0; p < points.length; p++){
     selectedPoints += "<span class='points'>(" + points[p][0] + ", " + -points[p][1] + ")</span>";
     if(p < points.length-1){
-    selectedPoints += ", ";
+      selectedPoints += ", </span>";
+    } else {
+      selectedPoints += "</span>";
     }
   }
   selectedPoints += "]";
