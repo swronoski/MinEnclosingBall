@@ -8,19 +8,71 @@
   <script language="javascript" type="text/javascript" src="circle.js"></script>
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
 
+  <link rel="stylesheet" href="https://use.typekit.net/uwj2iim.css">
+
   <!-- This line removes any default padding and style.
        You might only need one of these values set. -->
   <style>
-    body { padding: 20; margin: 0; }
+    body {
+      font-family: input-mono, monospace;
+      padding: 0; margin: 0;
+      background: #0082c8;
+      color: #75cdfd;
+      font-size: 10px;
+    }
+    canvas {
+      font-family: input-mono, monospace;
+    }
+    #wrapper {
+       margin: 20px;
+       display: flex;
+       flex-direction: column;
+    }
+    #canvas-container, #controls, #output {
+      display: flex;
+    }
+    #controls {
+      width: 400px;
+      margin: 0 auto;
+    }
+    #output {
+      flex-direction: column;
+      width: 400px;
+      margin: 0 auto;
+    }
+    .output-section {
+      display: flex;
+      margin-bottom: 6px;
+    }
+    .output-label {
+      font-weight: 600;
+      width: 125px;
+    }
+    .output-value {
+      width: 275px;
+    }
     button {
       margin: 8px 8px 20px 0;
+      border: 1px solid #75cdfd;
+      background: #0d95dd;
+      color: #a2defe;
+      font-family: input-mono, monospace;
+      font-size: 10px;
     }
     .points {
-      display: inline-block;
+      display: block;
+    }
+    canvas {
+      margin: 0 auto;
     }
   </style>
 </head>
 
 <body>
+<div id="wrapper">
+  <div id="canvas-container"></div>
+  <div id="controls"></div>
+  <div id="output"></div>
+</div>
 </body>
 </html>
