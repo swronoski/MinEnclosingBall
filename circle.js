@@ -227,7 +227,7 @@ function mouseClicked(){
   if((mouseX-width/2)/scaleFactor <= width/2/scaleFactor && (mouseX-width/2)/scaleFactor >= -width/2/scaleFactor &&
      (mouseY-height/2)/scaleFactor >= -height/2/scaleFactor && (mouseY-height/2)/scaleFactor <= height/2/scaleFactor
   ){
-    points.push([(mouseX-width/2)/scaleFactor, (mouseY-height/2)/scaleFactor]);
+    points.push([Math.round((mouseX-width/2)/scaleFactor*100)/100, Math.round((mouseY-height/2)/scaleFactor*100)/100]);
   } else {
     print([(mouseX-width/2)/scaleFactor, (mouseY-height/2)/scaleFactor]);
   }
