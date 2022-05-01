@@ -199,13 +199,13 @@ function constructMEB(){
   }
   //selectedPoints += "]";
   
-  output += "<div class='output-section'><span class='output-label'>Selected Points:</span> <span class='output-value'>" + selectedPoints + "</span>";
-  output += "</div>";
-  
   output += "<div class='output-section'><span class='output-label'>MEB Radius:</span> <span class='output-value'>" + nfc(finalCircle[0], 5) + "</span>";
   output += "</div>";
   
   output += "<div class='output-section'><span class='output-label'>MEB Center:</span> <span class='output-value'>(" + nfc(finalCircle[1][0], 5) + ", " + -nfc(finalCircle[1][1], 5) + ")</span>";
+  output += "</div>";
+  
+  output += "<div class='output-section'><span class='output-label'>Selected Points:</span> <span class='output-value'>" + selectedPoints + "</span>";
   output += "</div>";
   
   outputDiv.html(output);
